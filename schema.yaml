@@ -1,0 +1,53 @@
+type: object
+properties:
+  nodes:
+    type: object
+    description: Logistics network nodes
+    minProperties: 2
+    additionalProperties:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - PLANT
+            - DC
+            - WAREHOUSE
+            - CLIENT
+          description: Node type
+        capacity:
+          type: integer
+          description: Maximum node capacity
+          minimum: 1
+        cost:
+          type: integer
+          description: Cost of maintaining the node
+          minimum: 0
+          default: 0
+      required:
+        - type
+        - capacity
+        - cost
+  connections:
+    type: array
+    description: Connections between nodes
+    items:
+      type: object
+      properties:
+        from_node:
+          description: Connection follows from node
+        to_node:
+          description: Connection follows to node
+        capacity:
+          type: integer
+          description: Throughput capacity
+        cost:
+          type: integer
+          description: The cost of transporting a unit of products over the connection
+          minimum: 0
+      additionalProperties: false
+      required:
+        - from_node
+        - to_node
+        - capacity
+        - cost
